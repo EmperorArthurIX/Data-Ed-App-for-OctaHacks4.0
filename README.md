@@ -28,6 +28,6 @@ For the tech enthusiasts _(and our evaluators)_, here is the tech stack that we 
 The three students who worked upon this project!
 | Name | GitHub |
 | --- | --- |
-| Aishwarya Funaguskar | Aishwarya122222e3](https://github.com/Aishwarya122222e3)|
+| Aishwarya Funaguskar | [Aishwarya122222e3](https://github.com/Aishwarya122222e3)|
 | Ishaan Sunita Pandita | [EmperorArthurIX](https://github.com/EmperorArthurIX) |
 | Yash Shinde|[yashshinde03](https://github.com/yashshinde03)|
