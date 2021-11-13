@@ -283,4 +283,4 @@ if page == "Linear Regression":
     ax.set_title("Avg Min Temp vs Avg Max Temp")
     plt.savefig("RegPlot.png")
     st.image("RegPlot.png")
-    st.write("Here, we observe that there is a good correlation between Minimum Temperature of day to Maximum Temperatur of Day. Thus, we can predict the Maximum Temperature if we know the Minimum Temperature and Vice Versa")
+    st.write("Here, we observe that there is a good correlation between Minimum Temperature of day to Maximum Temperature of Day. Thus, we can predict the Maximum Temperature if we know the Minimum Temperature and Vice Versa")
