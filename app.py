@@ -1,7 +1,7 @@
 from matplotlib.pyplot import savefig
 import streamlit as st
 
-page = st.sidebar.selectbox("What do you want to see?", ("Home","Stock Analysis","Customisable Neural Network", "World Airlines", "Word Cloud Generator"))
+page = st.sidebar.selectbox("What do you want to see?", ("Home","Stock Analysis","Linear Regression","Customisable Neural Network", "World Airlines", "Word Cloud Generator"))
 
 
 if page == "Home":
@@ -183,39 +183,39 @@ if page == "World Airlines":
     from streamlit_folium import folium_static
     import numpy as np
 
-    df1 = pd.read_csv("World Map air routes.csv")
-    df2 = pd.read_csv("World Map airports.csv")
+    data1 = pd.read_csv("World Map air routes.csv")
+    data2 = pd.read_csv("World Map airports.csv")
 
-    df1 = df1[["Source airport", "Destination airport"]]
-    df1 = df1.sort_values("Source airport")
+    data1 = data1[["Source airport", "Destination airport"]]
+    data1 = data1.sort_values("Source airport")
 
-    df2 = df2[["City","IATA","Latitude","Longitude"]]
+    data2 = data2[["City","IATA","Latitude","Longitude"]]
 
-    df2 = df2.replace('\\N',np.NaN)
-    df2 = df2.dropna()
-    df2 = df2.drop_duplicates()
-    df2 = df2.sort_values("IATA")
+    data2 = data2.replace('\\N',np.NaN)
+    data2 = data2.dropna()
+    data2 = data2.drop_duplicates()
+    data2 = data2.sort_values("IATA")
 
-    df1 = df1.replace('\\N',np.NaN)
-    df1 = df1.dropna()
-    df1 = df1.drop_duplicates()
+    data1 = data1.replace('\\N',np.NaN)
+    data1 = data1.dropna()
+    data1 = data1.drop_duplicates()
 
-    df1 = df1.set_index(df1["Source airport"])
-    df2 = df2.set_index(df2["IATA"])
+    data1 = data1.set_index(data1["Source airport"])
+    data2 = data2.set_index(data2["IATA"])
 
-    city = st.sidebar.selectbox("Choose city to see routes", list(df2["City"]))
-    code = df2[df2['City'] == city]
+    city = st.sidebar.selectbox("Choose city to see routes", list(data2["City"]))
+    code = data2[data2['City'] == city]
     code = code.index[0]
 
-    dests = df1[df1["Source airport"] == code]
+    dests = data1[data1["Source airport"] == code]
     dests = dests[["Destination airport"]]
     # dests.iloc[2]["Destination airport"]
     destslist = [dests.iloc[x]["Destination airport"] for x in range(len(dests))]
     lats = []
     longs = []
     for x in destslist:
-        lats.append(df2.loc[x]["Latitude"])
-        longs.append(df2.loc[x]["Longitude"])
+        lats.append(data2.loc[x]["Latitude"])
+        longs.append(data2.loc[x]["Longitude"])
     world_map = folium.Map(tiles = "Stamen Terrain", zoom_start=4)
     pops = plugins.MarkerCluster().add_to(world_map)
     for lat, long, city in zip(lats,longs,destslist):
@@ -225,3 +225,62 @@ if page == "World Airlines":
             popup = city
         ).add_to(pops)
     folium_static(world_map)
+
+
+if page == "Linear Regression":
+    import seaborn as sns
+    import pandas as pd
+    from PIL import Image
+    import matplotlib as mpl
+    import matplotlib.pyplot as plt
+
+
+    st.title("Linear Regression App")
+    st.write(
+        "Welcome to the Linear Regression demonstration app! Here, you can check out how Linear Regression works and what it looks like!",
+        "You can *upload a dataset* to test regression\n\n***OR***\n\nYou can observe the regression model we made for you!"
+        )
+    # upload = st.sidebar.file_uploader("Upload a CSV file adhering to guidelines", type=['csv'])
+    data = pd.DataFrame()
+
+    # if upload == None:
+    #     st.write("You may upload a dataset")
+    #     data = pd.read_csv("WW2 Summary of Weather.csv")
+    # else:
+    #     try:
+    #         data = pd.read_csv(upload.name)
+    #     except:
+    #         st.write("We cannot load your dataset :(\n\nUsing our dataset for now")
+    #         data = pd.read_csv("WW2 Summary of Weather.csv")
+    show_data = st.button("Show Sample Dataset")
+    hide_data = st.button("Hide Sample Dataset")
+    if show_data and not hide_data:
+        st.image(Image.open("Regression Sample.jpeg"))
+    # st.write(
+    #     "### NOTE\n\nPlease adhere to the sample format while uploading a file so that we may be able to process your data properly! :)",
+    #     "\n\nHere are some guidlines to make sure there are no unwanted errors while we process your dataset:"
+    #     )
+    # st.markdown(
+    #     "##### Data types:\n\n- Date: String or DateTime\n- Independant Variable: Integer or Float\n- Target Variable: Integer or Float\n"
+    #     )
+    # st.markdown(
+    #     "Please maintain the order of these columns for best and accurate results.\n\n##### Heads Up:\n\nYou may think of uploading more than one 3 columns of data, just like in the sample set. If so, please keep in mind that we are demonstrating Simple Linear Regression and we will use aggregate functions to reduce data complexity.\n\nThis means that we are going to calculate regression for 1 Independant Variable using 1 Dependant Variable, like Y = MX + C. We have taken care of that part for you! ;)"
+    #     )
+    # st.write(
+    #     "### Let's dive into the exciting part!"
+    #     )
+    # upload == None
+    # if(upload == None):
+    data = pd.read_csv("WW2 Summary of Weather.csv")
+    data = data[["STA", "Date", "MaxTemp","MinTemp","MeanTemp"]]
+    data.Date = pd.to_datetime(data.Date)
+    regdata = data[["MinTemp", "MaxTemp", "MeanTemp"]].groupby(data["Date"]).mean()
+    
+    plt.figure(figsize=(15,10))
+    mpl.style.use('ggplot')
+    ax = sns.regplot(x="MinTemp", y="MaxTemp", data = regdata, marker=".")
+    ax.set(xlabel="Avg Min Temp of Day Across Stations", ylabel="Avg Max Temp of Day Across Stations")
+    ax.set_title("Avg Min Temp vs Avg Max Temp")
+    plt.savefig("RegPlot.png")
+    st.image("RegPlot.png")
+    st.write("Here, we observe that there is a good correlation between Minimum Temperature of day to Maximum Temperatur of Day. Thus, we can predict the Maximum Temperature if we know the Minimum Temperature and Vice Versa")
