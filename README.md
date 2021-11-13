@@ -13,15 +13,15 @@
 ---
 For the tech enthusiasts _(and our evaluators)_, here is the tech stack that we used:
 
-<img src="https://aws1.discourse-cdn.com/business7/uploads/streamlit/original/2X/8/8cb5b6c0e1fe4e4ebfd30b769204c0d30c332fec.png" height="25" width="75"/>
+<img src="https://aws1.discourse-cdn.com/business7/uploads/streamlit/original/2X/8/8cb5b6c0e1fe4e4ebfd30b769204c0d30c332fec.png" height="50" width="150"/>
 
-<img src="https://upload.wikimedia.org/wikipedia/commons/thumb/e/ed/Pandas_logo.svg/1200px-Pandas_logo.svg.png" height="25" width="75"/>
+<img src="https://upload.wikimedia.org/wikipedia/commons/thumb/e/ed/Pandas_logo.svg/1200px-Pandas_logo.svg.png" height="50" width="150"/>
 
-<img src="https://miro.medium.com/max/765/1*cyXCE-JcBelTyrK-58w6_Q.png" height="25" width="75"/>
+<img src="https://miro.medium.com/max/765/1*cyXCE-JcBelTyrK-58w6_Q.png" height="50" width="150"/>
 
-<img src="https://matplotlib.org/_static/logo2_compressed.svg" height="25" width="75"/>
+<img src="https://matplotlib.org/_static/logo2_compressed.svg" height="50" width="150"/>
 
-<img src="https://seaborn.pydata.org/_static/logo-wide-lightbg.svg" height="25" width="75"/>
+<img src="https://seaborn.pydata.org/_static/logo-wide-lightbg.svg" height="50" width="150"/>
 
 ## Team
 ---
