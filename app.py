@@ -130,20 +130,51 @@ if page ==  "Stock Analysis":
 if page == "Word Cloud Generator":
     import pandas as pd
     from wordcloud import WordCloud, STOPWORDS
+    import numpy as np
+    from PIL import Image
     st.title("Word Cloud Generator")
     st.write(
         "### Welcome to the word cloud generator application where you can upload a text file and we will generate a word cloud of the most frequent words in the file!",
-        "\n\nFeel free to *upload a file*\n\n***OR***\n\n*Use our file* as a demo!"
+        "\n\nFeel free to upload a file\n\n**OR*\n\n*Use our file as a demo!"
         )
     upload = st.sidebar.file_uploader("Upload a text file or csv file", type=['csv','txt'])
-    if(upload == None):
+    # data = open("WordCloudText.txt", "r").read()
+    data = '''Date: September 18th, 2021
+Sub: Request for Registration of GDSC with Amity University Maharashtra
+Hon’ble Director Sir / Hon’ble Registrar Sir,
+I, the undersigned, student at Amity School of Engineering and Technology, Amity University Maharashtra, wish to bring to your kind notice that on being selected as the Google Developer Students Club (GDSC) Lead for Amity University Mumbai, I have tried to establish said club for our students.
+With guidance from our faculty mentor, Dr Deepa Parasar, we have set up a core committee for the club, comprising enthusiastic and active members, abiding by guidelines provided by Google. 
+We, your students, collectively seek your permission and blessings to establish our GDSC as a registered club of Amity University Mumbai.
+It is a humble request that your good selves may shower your good wishes and brighten the future of our students by allowing our club GDSC AUM to be displayed as an official club on the website of Amity University Mumbai.
+We not only hope, but also believe that your good selves may respond positively and as soon as conveniently possible.
+Seeking your blessings,
+Yours faithfully,
+Tushar Sharma
+For GDSC AUM'''
+    if (upload == None):
         st.write(
             "If you wish to make your own word cloud, feel free to use the file uploader in the sidebar",
             "\n\nCurrently using our demo file"
-            )
-        data = pd.read_csv("WordCloudText.txt")
+        )
+        # data = open("WordCloudText.txt", "r").read()
     else:
-        data = pd.read_csv(upload.name)
+        data = open(upload.name, "r").read()
+
+
+    def create_word_cloud(string):
+        # maskArray = np.array(Image.open("cloud.png"))
+        # cloud = WordCloud(background_color="white", max_words=200, mask=maskArray, stopwords=set(STOPWORDS))
+        cloud = WordCloud(background_color="white", max_words=200, stopwords=set(STOPWORDS))
+        cloud.generate(string)
+        cloud.to_file("WordCloud.png")
+
+
+    data = data.lower()
+    create_word_cloud(data)
+    try:
+        st.image("WordCloud.png")
+    except:
+        st.write("We could not process the data. Please try again")
 
 if page == "World Airlines":
     import folium
