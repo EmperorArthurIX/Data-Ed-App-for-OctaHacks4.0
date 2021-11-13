@@ -162,9 +162,9 @@ For GDSC AUM'''
 
 
     def create_word_cloud(string):
-        # maskArray = np.array(Image.open("cloud.png"))
-        # cloud = WordCloud(background_color="white", max_words=200, mask=maskArray, stopwords=set(STOPWORDS))
-        cloud = WordCloud(background_color="white", max_words=200, stopwords=set(STOPWORDS))
+        maskArray = np.array(Image.open("Mangekyou Sharingan.png"))
+        cloud = WordCloud(background_color="white", max_words=200, mask=maskArray, stopwords=set(STOPWORDS))
+        # cloud = WordCloud(background_color="white", max_words=200, stopwords=set(STOPWORDS))
         cloud.generate(string)
         cloud.to_file("WordCloud.png")
 
@@ -283,4 +283,4 @@ if page == "Linear Regression":
     ax.set_title("Avg Min Temp vs Avg Max Temp")
     plt.savefig("RegPlot.png")
     st.image("RegPlot.png")
-    st.write("Here, we observe that there is a good correlation between Minimum Temperature of day to Maximum Temperatur of Day. Thus, we can predict the Maximum Temperature if we know the Minimum Temperature and Vice Versa")
+    st.write("Here, we observe that there is a good correlation between Minimum Temperature of day to Maximum Temperature of Day. Thus, we can predict the Maximum Temperature if we know the Minimum Temperature and Vice Versa")
