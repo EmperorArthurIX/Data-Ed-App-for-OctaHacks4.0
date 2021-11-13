@@ -162,9 +162,9 @@ For GDSC AUM'''
 
 
     def create_word_cloud(string):
-        # maskArray = np.array(Image.open("Mangekyou Sharingan.png"))
-        # cloud = WordCloud(background_color="white", max_words=200, mask=maskArray, stopwords=set(STOPWORDS))
-        cloud = WordCloud(background_color="white", max_words=200, stopwords=set(STOPWORDS))
+        maskArray = np.array(Image.open("Mangekyou Sharingan.png"))
+        cloud = WordCloud(background_color="white", max_words=200, mask=maskArray, stopwords=set(STOPWORDS))
+        # cloud = WordCloud(background_color="white", max_words=200, stopwords=set(STOPWORDS))
         cloud.generate(string)
         cloud.to_file("WordCloud.png")
 
